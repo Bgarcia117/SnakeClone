@@ -2,14 +2,30 @@
 
 class Game {
 private:
-	sf::RenderWindow window;
+	// === Window ===
+	sf::RenderWindow window;      // Main game window
+
+	// === Game Logic ===
+	bool gameOver;
+	int score;
+
+	// === Initalization Functions ==
+	void initWindow();
+	
+
 
 public:
-	// Constructors
+	// === Constructors / Destructor ===
 	Game();
 	~Game();
 
-	// Window
-	
+	// === Accessors ===
+	const bool isWindowOpen();
+
+	// === Game Control ===
+	void runGame();
+
+	// Update Functions
+	void update
 
 };
