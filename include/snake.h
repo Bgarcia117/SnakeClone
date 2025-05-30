@@ -4,12 +4,14 @@
 
 class Snake {
 private:
-	// Variables
-
 	// Snake Body
 	std::vector<sf::RectangleShape>;
 
 
 public:
+	// === Constructors / Destructor
+	Snake();
+	~Snake();
+
 	void grow();
 };
