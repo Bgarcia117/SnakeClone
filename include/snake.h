@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
 #include <vector>
 
 class Snake {
@@ -15,4 +16,6 @@ public:
 	~Snake();
 
 	void grow();
+	void updatePositon();
+	void renderSnake(sf::RenderTarget& target);
 };

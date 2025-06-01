@@ -2,7 +2,6 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
-#include <SFML/System.hpp>
 
 #include "snake.h"
 
@@ -10,8 +9,11 @@ class Game {
 private:
 	// === Window ===
 	std::optional<sf::RenderWindow> window;
+
+	// === Screen Objects
 	Snake snake;
-	
+	sf::RectangleShape food;
+
 	// === Game Logic ===
 	bool gameOver;
 	int score;
@@ -19,7 +21,7 @@ private:
 	// === Initalization Functions ==
 	void initVariables();
 	void initWindow();
-	
+
 
 
 public:
@@ -33,7 +35,9 @@ public:
 	// === Game Control ===
 	void runGame();
 
-	// Update Functions
+	// === Update Functions ===
 	void updateEvent();
 
-};
+	// === Render Functions === 
+	void render();
+}

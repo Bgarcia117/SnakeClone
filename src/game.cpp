@@ -3,11 +3,14 @@
 void Game::initVariables() {
 	gameOver = false;
 	score = 0;
+
+	food.setPosition({ 50.f, 50.f });
+	food.setSize({ 10.f, 10.f });
 }
 
 void Game::initWindow() {
 	window.emplace(
-		sf::VideoMode( {800, 600} ),
+		sf::VideoMode({800, 600}),
 		"Snake",
 		sf::Style::Default  // Includes windowed, titlebar, and resize
 	);
@@ -16,10 +19,11 @@ void Game::initWindow() {
 }
 
 
-Game::Game() {
+Game::Game() : Snake() {
 	initVariables();
 	initWindow();
-	Snake();
+	render();
+	
 }
 
 Game::~Game()
@@ -49,5 +53,8 @@ void Game::updateEvent() {
 	}
 }
 
-
-
+void Game::render() {
+	
+	// Error Handling for optional window & dereferences
+	if (window.has_value()) snake.renderSnake(*window);
+}
