@@ -12,7 +12,6 @@ private:
 	std::optional<sf::RenderWindow> window;
 	Snake snake;
 	
-
 	// === Game Logic ===
 	bool gameOver;
 	int score;
@@ -35,6 +34,6 @@ public:
 	void runGame();
 
 	// Update Functions
-	void update();
+	void updateEvent();
 
 };
