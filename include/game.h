@@ -6,6 +6,21 @@
 #include "snake.h"
 
 class Game {
+public:
+	// === Constructors / Destructor ===
+	Game();
+	~Game();
+
+	// === Accessors ===
+	bool isWindowOpen() const;
+
+	// === Update Functions ===
+	void updateEvent();
+	void updateGameState();
+
+	// === Render Functions === 
+	void render();
+
 private:
 	// === Window ===
 	std::optional<sf::RenderWindow> window;
@@ -24,20 +39,4 @@ private:
 
 
 
-public:
-	// === Constructors / Destructor ===
-	Game();
-	~Game();
-
-	// === Accessors ===
-	const bool isWindowOpen();
-
-	// === Game Control ===
-	void runGame();
-
-	// === Update Functions ===
-	void updateEvent();
-
-	// === Render Functions === 
-	void render();
-}
+};

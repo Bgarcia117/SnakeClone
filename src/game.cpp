@@ -1,25 +1,6 @@
 #include "game.h"
 
-void Game::initVariables() {
-	gameOver = false;
-	score = 0;
-
-	food.setPosition({ 50.f, 50.f });
-	food.setSize({ 10.f, 10.f });
-}
-
-void Game::initWindow() {
-	window.emplace(
-		sf::VideoMode({800, 600}),
-		"Snake",
-		sf::Style::Default  // Includes windowed, titlebar, and resize
-	);
-
-	window->setFramerateLimit(60);
-}
-
-
-Game::Game() : Snake() {
+Game::Game() : snake() {
 	initVariables();
 	initWindow();
 	render();
@@ -30,13 +11,10 @@ Game::~Game()
 {
 }
 
-const bool Game::isWindowOpen() {
+bool Game::isWindowOpen() const {
 	return window->isOpen();
 }
 
-void Game::runGame()
-{
-}
 
 void Game::updateEvent() {
 	// check all the window's events that were triggered since the last iteration of the loop
@@ -53,8 +31,33 @@ void Game::updateEvent() {
 	}
 }
 
+void Game::updateGameState() {
+	snake.move(window->getSize());
+}
+
 void Game::render() {
-	
+	window->clear();
+
 	// Error Handling for optional window & dereferences
-	if (window.has_value()) snake.renderSnake(*window);
+	if (window) snake.renderSnake(*window);
+
+	window->display();
+}
+
+void Game::initVariables() {
+	gameOver = false;
+	score = 0;
+
+	food.setPosition({ 50.f, 50.f });
+	food.setSize({ 10.f, 10.f });
+}
+
+void Game::initWindow() {
+	window.emplace(
+		sf::VideoMode({600, 600}),
+		"Snake",
+		sf::Style::Default  // Includes windowed, titlebar, and resize
+	);
+
+	window->setFramerateLimit(60);
 }
