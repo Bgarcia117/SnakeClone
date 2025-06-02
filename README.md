@@ -29,7 +29,7 @@ The objective of this project is to:
 
 ## 🗂️ Project Structure
 
-snake_game/
+SnakeClone/
 ├── include/              # Header files (interfaces)
 │   ├── game.h
 │   └── snake.h
@@ -39,32 +39,8 @@ snake_game/
 │   ├── snake.cpp
 │   └── main.cpp
 │
-├── assets/               # (Optional) Sprites, fonts, or audio
-├── CMakeLists.txt        # (Optional) CMake build configuration
+├── assets/               # Sprites and fonts
+├── CMakeLists.txt        # CMake build configuration
 └── README.md             # Project information
 
-
----
-
-## ⚙️ How to Build and Run
-
-### Requirements
-- C++17 or later
-- SFML 3.0 or later
-- CMake
-
-# Open PowerShell or Command Prompt
-
-# Navigate to your project directory
-cd SnakeClone
-
-# Create and enter the build directory
-mkdir build
-cd build
-
-# Generate Visual Studio project files
-cmake .. -G "Visual Studio 17 2022" -A x64
-
-# Build the project in Release mode
-cmake --build . --config Release
 
