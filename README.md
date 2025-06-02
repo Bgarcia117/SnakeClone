@@ -29,6 +29,7 @@ The objective of this project is to:
 
 ## 🗂️ Project Structure
 
+```
 SnakeClone/
 ├── include/              # Header files (interfaces)
 │   ├── game.h
@@ -42,5 +43,4 @@ SnakeClone/
 ├── assets/               # Sprites and fonts
 ├── CMakeLists.txt        # CMake build configuration
 └── README.md             # Project information
-
-
+```
