@@ -9,6 +9,7 @@ int main() {
 
     while (game.isWindowOpen()) {
         game.updateEvent();
+        game.updateGameState();
         game.render();
     }
 
