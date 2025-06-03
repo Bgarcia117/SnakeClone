@@ -25,11 +25,13 @@ private:
 	// === Window ===
 	std::optional<sf::RenderWindow> window;
 
-	// === Screen Objects
+	// === Window Objects ===
 	Snake snake;
 	sf::RectangleShape food;
 
 	// === Game Logic ===
+	sf::Clock moveClock;
+	const float moveInterval = 0.15f; // Moves every 0.15 sec for movesa
 	bool gameOver;
 	int score;
 
