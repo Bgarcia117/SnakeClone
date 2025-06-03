@@ -28,9 +28,9 @@ public:
 	// === Accessors ===
 	Direction getDirection() const { return moveDirection; }
 	void setDirection(Direction newDirection) { moveDirection = newDirection; }
-	void storeTurnPos(sf::Vector2f newPos) { turnPos = getHead(); }
-	sf::Vector2f getHead() const { return body.front().part.getPosition(); }
-	sf::Vector2f getTail() const { return body.back().part.getPosition(); }
+	void storeTurnPos(sf::Vector2f newPos) { turnPos = getHeadPos(); }
+	sf::Vector2f getHeadPos() const { return body.front().part.getPosition(); }
+	sf::Vector2f getTailPos() const { return body.back().part.getPosition(); }
 
 	// === Transformers ===
 	void grow();

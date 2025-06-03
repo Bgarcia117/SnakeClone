@@ -4,10 +4,7 @@ Snake::Snake() {
 	turnPos = startPos;
 	moveDirection = Direction::Right;
 
-	SnakeSegment head;
-	head.part.setSize({ segmentSize, segmentSize });
-	head.part.setFillColor(sf::Color::Cyan);
-	head.part.setPosition(startPos);
+	body.push_back(createSegment(true, false));
 
 
 	grow();
@@ -30,7 +27,11 @@ void Snake::grow() {
 		tailPos = bodySegment.getPosition();
 	}
 
-	body.push_back(bodySegment);
+	if (!body.empty()) {
+		body.back().isTail = false;
+	}
+
+	body.push_back(bodySegment(false, true));
 }
 
 void Snake::move(Direction direction) {
@@ -39,8 +40,7 @@ void Snake::move(Direction direction) {
 	switch (moveDirection) {
 	case Direction::Up:
 		for (auto& segment : body) {
-			if (segment.getPosition() == turnPos)
-			segment.move({ 0.f, -segmentSize });
+		    segment.part.move({0.f, -segmentSize})
 		}
 		break;
 
@@ -66,7 +66,7 @@ void Snake::move(Direction direction) {
 
 void Snake::renderSnake(sf::RenderTarget& target) {
 	for (const auto& segment : body) {
-		target.draw(segment);
+		target.draw(segment.part);
 	}
 }
 
@@ -79,6 +79,10 @@ SnakeSegment Snake::createSegment(bool isHead, bool isTail) {
 		segment.part.setPosition(startPos);
 	}
 	else {
-
+		sf::Vector2f(getTailPos().x - segmentSize, getTailPos().y);
 	}
+
+	segment.isHead = isHead;
+	segment.isTail = isTail;
+	return segment;
 }
