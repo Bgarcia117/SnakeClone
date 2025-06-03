@@ -23,16 +23,42 @@ void Game::updateEvent() {
 		if (event->is<sf::Event::Closed>()) {
 			window->close();
 		}
+		// getIf returns a pointer
 		else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>()) {
-			if (keyPressed->scancode == sf::Keyboard::Scancode::Escape) {
-				window->close();
+
+			switch (keyPressed->scancode) {
+				case sf::Keyboard::Scancode::W:
+				case sf::Keyboard::Scancode::Up:
+					snake.move(Snake::Direction::Up);
+					break;
+
+				case sf::Keyboard::Scancode::S:
+				case sf::Keyboard::Scancode::Down:
+					snake.move(Snake::Direction::Down);
+					break;
+
+				case sf::Keyboard::Scancode::A:
+				case sf::Keyboard::Scancode::Left:
+					snake.move(Snake::Direction::Left);
+					break;
+
+				case sf::Keyboard::Scancode::D:
+				case sf::Keyboard::Scancode::Right:
+					snake.move(Snake::Direction::Right);
+					break;
 			}
+
 		}
+
 	}
 }
 
 void Game::updateGameState() {
-	snake.move(window->getSize());
+	// Check if enough time has passed to make a move and move snake
+	if (moveClock.getElapsedTime().asSeconds() >= moveInterval) {
+	    snake.move(snake.getDirection());
+		moveClock.restart();
+	}
 }
 
 void Game::render() {
