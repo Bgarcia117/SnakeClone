@@ -5,12 +5,18 @@
 #include <SFML/System.hpp>
 #include <vector>
 
+struct SnakeSegment {
+	sf::RectangleShape part;
+	bool isHead;
+	bool isTail;
+};
+
 class Snake {
 public:
 	// === Enum for the snakes directions
 	enum class Direction {
 		Up,
-		Down, 
+		Down,
 		Left,
 		Right
 	};
@@ -19,19 +25,36 @@ public:
 	Snake();
 	~Snake();
 
+	// === Accessors ===
+	Direction getDirection() const { return moveDirection; }
+	void setDirection(Direction newDirection) { moveDirection = newDirection; }
+	void storeTurnPos(sf::Vector2f newPos) { turnPos = getHead(); }
+	sf::Vector2f getHead() const { return body.front().part.getPosition(); }
+	sf::Vector2f getTail() const { return body.back().part.getPosition(); }
+
+	// === Transformers ===
 	void grow();
-	void move(sf::Vector2u windowSize);
+	void move(Direction moveDirection);
+
+	// Rendering
 	void renderSnake(sf::RenderTarget& target);
+
+
+
+
 	 
 private:
 	// === Constants ===
 	const float segmentSize = 20.f;
+	const sf::Vector2f startPos = { 200.f, 200.f };
 
 	// === Variables ===
+	sf::Vector2f turnPos;
 	Direction moveDirection;
 
 	// === Snake Body ===
-	std::vector<sf::RectangleShape> body;
+	std::vector<SnakeSegment> body;
+	SnakeSegment createSegment(bool isHead = false, bool isTail == false);
 
 
 };
