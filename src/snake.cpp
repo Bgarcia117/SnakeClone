@@ -1,12 +1,16 @@
 #include "snake.h"
 
 Snake::Snake() {
+	bool turn = false;
 	turnPos = startPos;
 	moveDirection = Direction::Right;
 
 	body.push_back(createSegment(true, true));
 
 
+	grow();
+	grow();
+	grow();
 	grow();
 }
 
@@ -24,27 +28,17 @@ void Snake::grow() {
 
 void Snake::updateSnake() {
 	for (auto& segment : body) {
-		moveSegments(segment);
+		moveSegments(segment, segment.segDirection);
 	}
-
 }
 
 void Snake::changeDirection(Direction newDirection) {
-	for (auto& segment : body) {
-		if (segment.isHead) {
-			turnPos = getHeadPos();
-		
-		}
-		else {
-			while (segment.part.getPosition() != turnPos) {
-				segment.part.moveSnake(moveDirection);
-			}
-
-			segment.part.moveSnake(moveDirection);
+	for (int i = 0; i < body.size(); ++i) {
+		body[i].segDirection = newDirection;
+		for (int j = 0; j < body.size(); ++j) {
+		    moveSegments(body[j], body[j].segDirection);
 		}
 	}
-
-	setDirection(newDirection);
 }
 
 
@@ -67,13 +61,13 @@ SnakeSegment Snake::createSegment(bool isHead, bool isTail) {
 		segment.part.setPosition({ getTailPos().x - segmentSize, getTailPos().y });
 	}
 
-	segDirection = moveDirection;
+	segment.segDirection = Direction::Right;
 	segment.isHead = isHead;
 	segment.isTail = isTail;
 	return segment;
 }
 
-void Snake::moveSegments(Direction direction, SnakeSegment& segment) {
+void Snake::moveSegments(SnakeSegment& segment, Direction direction) {
 
 	switch (direction) {
 	case Direction::Up:

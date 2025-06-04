@@ -5,22 +5,23 @@
 #include <SFML/System.hpp>
 #include <vector>
 
+// === Enum for the snakes directions ===
+enum class Direction {
+	Up,
+	Down,
+	Left,
+	Right
+};
+
 struct SnakeSegment {
 	sf::RectangleShape part;
-	Snake::Direction segDirection;
+	Direction segDirection = Direction::Right;
 	bool isHead = false;
 	bool isTail = false;
 };
 
 class Snake {
 public:
-	// === Enum for the snakes directions
-	enum class Direction {
-		Up,
-		Down,
-		Left,
-		Right
-	};
 
 	// === Constructors / Destructor
 	Snake();
@@ -51,13 +52,14 @@ private:
 	const sf::Vector2f startPos = { 200.f, 200.f };
 
 	// === Variables ===
+	bool turn;
 	sf::Vector2f turnPos;
 	Direction moveDirection;
 
 	// === Snake Body ===
 	std::vector<SnakeSegment> body;
 	SnakeSegment createSegment(bool isHead = false, bool isTail = false);
-	void moveSegments(Direction direction, SnakeSegment& segment);
+	void moveSegments(SnakeSegment& segment, Direction direction);
 
 
 };
