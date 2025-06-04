@@ -7,8 +7,9 @@
 
 struct SnakeSegment {
 	sf::RectangleShape part;
-	bool isHead;
-	bool isTail;
+	Snake::Direction segDirection;
+	bool isHead = false;
+	bool isTail = false;
 };
 
 class Snake {
@@ -34,7 +35,8 @@ public:
 
 	// === Transformers ===
 	void grow();
-	void move(Direction moveDirection);
+	void changeDirection(Direction newDirection);
+	void updateSnake();
 
 	// Rendering
 	void renderSnake(sf::RenderTarget& target);
@@ -54,7 +56,8 @@ private:
 
 	// === Snake Body ===
 	std::vector<SnakeSegment> body;
-	SnakeSegment createSegment(bool isHead = false, bool isTail == false);
+	SnakeSegment createSegment(bool isHead = false, bool isTail = false);
+	void moveSegments(Direction direction, SnakeSegment& segment);
 
 
 };
