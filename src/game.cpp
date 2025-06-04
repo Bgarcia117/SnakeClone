@@ -19,6 +19,7 @@ bool Game::isWindowOpen() const {
 void Game::updateEvent() {
 	// check all the window's events that were triggered since the last iteration of the loop
 	while (const std::optional event = window->pollEvent()) {
+
 		// "close requested" event: we close the window
 		if (event->is<sf::Event::Closed>()) {
 			window->close();
@@ -29,22 +30,22 @@ void Game::updateEvent() {
 			switch (keyPressed->scancode) {
 				case sf::Keyboard::Scancode::W:
 				case sf::Keyboard::Scancode::Up:
-					snake.move(Snake::Direction::Up);
+					snake.moveSnake(Snake::Direction::Up);
 					break;
 
 				case sf::Keyboard::Scancode::S:
 				case sf::Keyboard::Scancode::Down:
-					snake.move(Snake::Direction::Down);
+					snake.moveSnake(Snake::Direction::Down);
 					break;
 
 				case sf::Keyboard::Scancode::A:
 				case sf::Keyboard::Scancode::Left:
-					snake.move(Snake::Direction::Left);
+					snake.moveSnake(Snake::Direction::Left);
 					break;
 
 				case sf::Keyboard::Scancode::D:
 				case sf::Keyboard::Scancode::Right:
-					snake.move(Snake::Direction::Right);
+					snake.moveSnake(Snake::Direction::Right);
 					break;
 			}
 
