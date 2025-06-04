@@ -30,22 +30,22 @@ void Game::updateEvent() {
 			switch (keyPressed->scancode) {
 				case sf::Keyboard::Scancode::W:
 				case sf::Keyboard::Scancode::Up:
-					snake.moveSnake(Snake::Direction::Up);
+					snake.changeDirection(Direction::Up);
 					break;
 
 				case sf::Keyboard::Scancode::S:
 				case sf::Keyboard::Scancode::Down:
-					snake.moveSnake(Snake::Direction::Down);
+					snake.changeDirection(Direction::Down);
 					break;
 
 				case sf::Keyboard::Scancode::A:
 				case sf::Keyboard::Scancode::Left:
-					snake.moveSnake(Snake::Direction::Left);
+					snake.changeDirection(Direction::Left);
 					break;
 
 				case sf::Keyboard::Scancode::D:
 				case sf::Keyboard::Scancode::Right:
-					snake.moveSnake(Snake::Direction::Right);
+					snake.changeDirection(Direction::Right);
 					break;
 			}
 
@@ -57,7 +57,7 @@ void Game::updateEvent() {
 void Game::updateGameState() {
 	// Check if enough time has passed to make a move and move snake
 	if (moveClock.getElapsedTime().asSeconds() >= moveInterval) {
-	    snake.move(snake.getDirection());
+		snake.updateSnake();
 		moveClock.restart();
 	}
 }
