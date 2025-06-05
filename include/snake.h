@@ -55,6 +55,7 @@ private:
 	bool turn;
 	sf::Vector2f turnPos;
 	Direction moveDirection;
+	Direction nextDirection = Direction::Right;
 
 	// === Snake Body ===
 	std::vector<SnakeSegment> body;
