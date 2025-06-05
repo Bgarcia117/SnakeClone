@@ -27,18 +27,25 @@ void Snake::grow() {
 
 
 void Snake::updateSnake() {
-	for (auto& segment : body) {
-		moveSegments(segment, segment.segDirection);
+	for (int i = body.size() - 1; i > 0; --i) {
+		body[i].part.setPosition(body[i - 1].part.getPosition());
+		body[i].segDirection = body[i - 1].segDirection;
+
+		moveDirection = nextDirection;
+		moveSegments(body[0], moveDirection);
+		body[0].segDirection = moveDirection;
 	}
 }
 
 void Snake::changeDirection(Direction newDirection) {
-	for (int i = 0; i < body.size(); ++i) {
-		body[i].segDirection = newDirection;
-		for (int j = 0; j < body.size(); ++j) {
-		    moveSegments(body[j], body[j].segDirection);
-		}
+	if ((moveDirection == Direction::Up && newDirection == Direction::Down)    ||
+		(moveDirection == Direction::Down && newDirection == Direction::Up)    ||
+		(moveDirection == Direction::Right && newDirection == Direction::Left) ||
+		(moveDirection == Direction::Left && newDirection == Direction::Right) || ) {
+		return;
 	}
+
+	nextDirection = newDirection;
 }
 
 
