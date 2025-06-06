@@ -30,7 +30,6 @@ public:
 	// === Accessors ===
 	Direction getDirection() const { return moveDirection; }
 	void setDirection(Direction newDirection) { moveDirection = newDirection; }
-	void storeTurnPos(sf::Vector2f newPos) { turnPos = getHeadPos(); }
 	sf::Vector2f getHeadPos() const { return body.front().part.getPosition(); }
 	sf::Vector2f getTailPos() const { return body.back().part.getPosition(); }
 
@@ -40,7 +39,7 @@ public:
 	void updateSnake();
 
 	// Rendering
-	void renderSnake(sf::RenderTarget& target);
+	void renderSnake(sf::RenderTarget& target) const;
 
 
 
@@ -52,14 +51,12 @@ private:
 	const sf::Vector2f startPos = { 200.f, 200.f };
 
 	// === Variables ===
-	bool turn;
-	sf::Vector2f turnPos;
 	Direction moveDirection;
-	Direction nextDirection = Direction::Right;
+	Direction nextDirection;
 
 	// === Snake Body ===
 	std::vector<SnakeSegment> body;
-	SnakeSegment createSegment(bool isHead = false, bool isTail = false);
+	SnakeSegment createSegment(bool isHead = false, bool isTail = false) const;
 	void moveSegments(SnakeSegment& segment, Direction direction);
 
 
