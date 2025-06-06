@@ -4,6 +4,7 @@ Snake::Snake() {
 	bool turn = false;
 	turnPos = startPos;
 	moveDirection = Direction::Right;
+	nextDirection = Direction::Right;
 
 	body.push_back(createSegment(true, true));
 
@@ -27,21 +28,24 @@ void Snake::grow() {
 
 
 void Snake::updateSnake() {
+	// Each segment copies the position and direction of the one in ahead of it
 	for (int i = body.size() - 1; i > 0; --i) {
-		body[i].part.setPosition(body[i - 1].part.getPosition());
-		body[i].segDirection = body[i - 1].segDirection;
+		body[i].part.setPosition(body[i - 1].part.getPosition());// Copy Position
+		body[i].segDirection = body[i - 1].segDirection;         // Copy Direction
 
-		moveDirection = nextDirection;
-		moveSegments(body[0], moveDirection);
-		body[0].segDirection = moveDirection;
 	}
+
+	// After the for loop to ensure change starts at the new frame
+	moveDirection = nextDirection;
+	moveSegments(body[0], moveDirection);
+	body[0].segDirection = moveDirection;
 }
 
 void Snake::changeDirection(Direction newDirection) {
 	if ((moveDirection == Direction::Up && newDirection == Direction::Down)    ||
 		(moveDirection == Direction::Down && newDirection == Direction::Up)    ||
 		(moveDirection == Direction::Right && newDirection == Direction::Left) ||
-		(moveDirection == Direction::Left && newDirection == Direction::Right) || ) {
+		(moveDirection == Direction::Left && newDirection == Direction::Right)) {
 		return;
 	}
 
@@ -50,13 +54,13 @@ void Snake::changeDirection(Direction newDirection) {
 
 
 
-void Snake::renderSnake(sf::RenderTarget& target) {
+void Snake::renderSnake(sf::RenderTarget& target) const {
 	for (const auto& segment : body) {
 		target.draw(segment.part);
 	}
 }
 
-SnakeSegment Snake::createSegment(bool isHead, bool isTail) {
+SnakeSegment Snake::createSegment(bool isHead, bool isTail) const {
 	SnakeSegment segment;
 	segment.part.setSize({ segmentSize, segmentSize });
 	segment.part.setFillColor(isHead ? sf::Color::Cyan : sf::Color::Green);
