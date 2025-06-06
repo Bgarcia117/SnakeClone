@@ -2,7 +2,6 @@
 
 Snake::Snake() {
 	bool turn = false;
-	turnPos = startPos;
 	moveDirection = Direction::Right;
 	nextDirection = Direction::Right;
 
@@ -64,6 +63,8 @@ SnakeSegment Snake::createSegment(bool isHead, bool isTail) const {
 	SnakeSegment segment;
 	segment.part.setSize({ segmentSize, segmentSize });
 	segment.part.setFillColor(isHead ? sf::Color::Cyan : sf::Color::Green);
+	segment.part.setOutlineColor(sf::Color::Black);
+	segment.part.setOutlineThickness(1.f);
 
 	if (body.empty()) {
 		segment.part.setPosition(startPos);
@@ -97,5 +98,4 @@ void Snake::moveSegments(SnakeSegment& segment, Direction direction) {
 		segment.part.move({ segmentSize, 0.f });
 		break;
 	}
-
 }
