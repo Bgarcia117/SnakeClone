@@ -41,10 +41,6 @@ public:
 	// Rendering
 	void renderSnake(sf::RenderTarget& target) const;
 
-
-
-
-	 
 private:
 	// === Constants ===
 	const float segmentSize = 20.f;
