@@ -54,7 +54,7 @@ void Snake::changeDirection(Direction newDirection) {
 
 
 
-void Snake::renderSnake(sf::RenderTarget& target) const {
+void Snake::renderSnake(sf::RenderTarget& target) const  {
 	for (const auto& segment : body) {
 		target.draw(segment.part);
 	}
