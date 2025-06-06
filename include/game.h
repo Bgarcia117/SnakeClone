@@ -27,7 +27,7 @@ private:
 
 	// === Window Objects ===
 	Snake snake;
-	sf::RectangleShape food;
+	// sf::RectangleShape food;
 
 	// === Game Logic ===
 	sf::Clock moveClock;
