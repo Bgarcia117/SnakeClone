@@ -75,8 +75,8 @@ void Game::initVariables() {
 	gameOver = false;
 	score = 0;
 
-	food.setPosition({ 50.f, 50.f });
-	food.setSize({ 10.f, 10.f });
+	// food.setPosition({ 50.f, 50.f });
+	// food.setSize({ 10.f, 10.f });
 }
 
 void Game::initWindow() {
