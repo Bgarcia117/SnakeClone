@@ -27,7 +27,20 @@ private:
 
 	// === Window Objects ===
 	Snake snake;
-	// sf::RectangleShape food;
+
+	struct Food {
+		sf::RectangleShape food;
+		sf::Vector2f position;
+
+		Food() : position(foodStartPos) {
+			food.setPosition(foodStartPos);
+			food.setSize({ 10.f, 10.f });
+		}
+	};
+
+
+	// === Constants ===
+	const sf::Vector2f foodStartPos = { 300.f, 200.f };
 
 	// === Game Logic ===
 	sf::Clock moveClock;
