@@ -18,7 +18,7 @@ add_executable(SnakeClone
     src/main.cpp
     src/game.cpp
     src/snake.cpp
-)
+ "include/food.h" "src/food.cpp")
 
 # Include headers
 target_include_directories(SnakeClone PRIVATE include)
