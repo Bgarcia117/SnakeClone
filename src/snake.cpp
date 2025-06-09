@@ -14,6 +14,18 @@ Snake::Snake() {
 Snake::~Snake() {
 }
 
+sf::Vector2i Snake::getHeadPos() const {
+	sf::Vector2f pos = body.front().part.getPosition();
+	return { static_cast<int>(pos.x), static_cast<int>(pos.y) };
+}
+
+sf::Vector2i Snake::getTailPos() const {
+	sf::Vector2f pos = body.back().part.getPosition();
+	return { static_cast<int>(pos.x), static_cast<int>(pos.y) };
+}
+
+
+
 void Snake::grow() {
 	if (!body.empty()) {
 		body.back().isTail = false;

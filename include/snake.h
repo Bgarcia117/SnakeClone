@@ -30,11 +30,8 @@ public:
 	// === Accessors ===
 	Direction getDirection() const { return moveDirection; }
 	void setDirection(Direction newDirection) { moveDirection = newDirection; }
-	sf::Vector2i getHeadPos() const { 
-		sf::Vector2f po s = body.front().part.getPosition();
-		return sf::Vector2i(static_cast<int> (pos.x), static_cast<int>(pos.y));
-	}
-	sf::Vector2i getTailPos() const { return body.back().part.getPosition(); }
+	sf::Vector2i getHeadPos() const;
+	sf::Vector2i getTailPos() const;
 
 	// === Transformers ===
 	void grow();
