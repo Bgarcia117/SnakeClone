@@ -1,9 +1,10 @@
 #include "food.h"
 
 Food::Food() : food() {
-	food.setSize(foodSize);
+	food.setSize({static_cast<float>(foodSize.x), static_cast<float>(foodSize.y)});
 	food.setFillColor(sf::Color::Red);
-	food.setPosition(foodStartPos);
+	food.setPosition({ static_cast<float>(foodStartPos.x), 
+		               static_cast<float>(foodStartPos.y) });
 }
 
 Food::~Food() {
@@ -14,7 +15,7 @@ void Food::renderFood(sf::RenderTarget& target) const {
 	target.draw(food);
 }
 
-void Food::setPosition() {
+void Food::setPosition(sf::Vector2f newPositon) {
 
 }
 
