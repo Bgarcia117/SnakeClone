@@ -1,10 +1,7 @@
 #include "game.h"
 
-Game::Game() : snake() {
-	initVariables();
+Game::Game() : snake(), food(), gameOver(false), score(0) {
 	initWindow();
-	render();
-	
 }
 
 Game::~Game()
@@ -66,16 +63,12 @@ void Game::render() {
 	window->clear();
 
 	// Error Handling for optional window & dereferences
-	if (window) snake.renderSnake(*window);
+	if (window) {
+		food.renderFood(*window);
+		snake.renderSnake(*window);
+	}
 
 	window->display();
-}
-
-void Game::initVariables() {
-	gameOver = false;
-	score = 0;
-
-	Food food;
 }
 
 void Game::initWindow() {
@@ -87,3 +80,4 @@ void Game::initWindow() {
 
 	window->setFramerateLimit(60);
 }
+

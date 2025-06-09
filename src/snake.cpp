@@ -7,9 +7,6 @@ Snake::Snake() {
 
 	body.push_back(createSegment(true, true));
 
-
-	grow();
-	grow();
 	grow();
 	grow();
 }
@@ -53,7 +50,7 @@ void Snake::changeDirection(Direction newDirection) {
 
 
 
-void Snake::renderSnake(sf::RenderTarget& target) const  {
+void Snake::renderSnake(sf::RenderTarget& target) const {
 	for (const auto& segment : body) {
 		target.draw(segment.part);
 	}
@@ -64,7 +61,7 @@ SnakeSegment Snake::createSegment(bool isHead, bool isTail) const {
 	segment.part.setSize({ segmentSize, segmentSize });
 	segment.part.setFillColor(isHead ? sf::Color::Cyan : sf::Color::Green);
 	segment.part.setOutlineColor(sf::Color::Black);
-	segment.part.setOutlineThickness(1.f);
+	segment.part.setOutlineThickness(1);
 
 	if (body.empty()) {
 		segment.part.setPosition(startPos);
@@ -83,19 +80,19 @@ void Snake::moveSegments(SnakeSegment& segment, Direction direction) {
 
 	switch (direction) {
 	case Direction::Up:
-		segment.part.move({ 0.f, -segmentSize });
+		segment.part.move({ 0, -segmentSize });
 		break;
 
 	case Direction::Down:
-		segment.part.move({ 0.f, segmentSize });
+		segment.part.move({ 0, segmentSize });
 		break;
 
 	case Direction::Left:
-		segment.part.move({ -segmentSize, 0.f });
+		segment.part.move({ -segmentSize, 0 });
 		break;
 
 	case Direction::Right:
-		segment.part.move({ segmentSize, 0.f });
+		segment.part.move({ segmentSize, 0 });
 		break;
 	}
 }

@@ -1,8 +1,10 @@
 #pragma once
 #include <iostream>
+#include <random>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 
+#include "food.h"
 #include "snake.h"
 
 class Game {
@@ -24,23 +26,12 @@ public:
 private:
 	// === Window ===
 	std::optional<sf::RenderWindow> window;
+	// const sf::Vector2i windowSize = {}
+	void initWindow();
 
 	// === Window Objects ===
 	Snake snake;
-
-	struct Food {
-		sf::RectangleShape food;
-		sf::Vector2f position;
-
-		Food() : position(foodStartPos) {
-			food.setPosition(foodStartPos);
-			food.setSize({ 10.f, 10.f });
-		}
-	};
-
-
-	// === Constants ===
-	const sf::Vector2f foodStartPos = { 300.f, 200.f };
+	Food food;
 
 	// === Game Logic ===
 	sf::Clock moveClock;
@@ -48,9 +39,11 @@ private:
 	bool gameOver;
 	int score;
 
-	// === Initalization Functions ==
-	void initVariables();
-	void initWindow();
+	// === Random Number ===
+	/*std::random_device rd;
+	std::mt19937 gen;
+	std::uniform_real_distribution<int>
+	*/
 
 
 

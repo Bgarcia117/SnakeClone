@@ -30,8 +30,11 @@ public:
 	// === Accessors ===
 	Direction getDirection() const { return moveDirection; }
 	void setDirection(Direction newDirection) { moveDirection = newDirection; }
-	sf::Vector2f getHeadPos() const { return body.front().part.getPosition(); }
-	sf::Vector2f getTailPos() const { return body.back().part.getPosition(); }
+	sf::Vector2i getHeadPos() const { 
+		sf::Vector2f po s = body.front().part.getPosition();
+		return sf::Vector2i(static_cast<int> (pos.x), static_cast<int>(pos.y));
+	}
+	sf::Vector2i getTailPos() const { return body.back().part.getPosition(); }
 
 	// === Transformers ===
 	void grow();
@@ -43,8 +46,8 @@ public:
 
 private:
 	// === Constants ===
-	const float segmentSize = 20.f;
-	const sf::Vector2f startPos = { 200.f, 200.f };
+	const int segmentSize = 20;
+	const sf::Vector2i startPos = { 200, 200 };
 
 	// === Variables ===
 	Direction moveDirection;
