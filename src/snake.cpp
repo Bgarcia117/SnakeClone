@@ -76,7 +76,8 @@ SnakeSegment Snake::createSegment(bool isHead, bool isTail) const {
 	segment.part.setOutlineThickness(1);
 
 	if (body.empty()) {
-		segment.part.setPosition(startPos);
+		segment.part.setPosition({static_cast<float>(startPos.x), static_cast<float>(startPos.x)});
+
 	}
 	else {
 		segment.part.setPosition({ getTailPos().x - segmentSize, getTailPos().y });
