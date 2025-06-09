@@ -1,6 +1,6 @@
 #include "game.h"
 
-Game::Game() : snake(), food(), gameOver(false), score(0) {
+Game::Game() : snake(), food(), gameOver(false), score(0), gen(rd(1, 600)) {
 	initWindow();
 }
 
@@ -81,3 +81,4 @@ void Game::initWindow() {
 	window->setFramerateLimit(60);
 }
 
+  
