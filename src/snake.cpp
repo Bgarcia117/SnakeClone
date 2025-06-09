@@ -70,17 +70,20 @@ void Snake::renderSnake(sf::RenderTarget& target) const {
 
 SnakeSegment Snake::createSegment(bool isHead, bool isTail) const {
 	SnakeSegment segment;
-	segment.part.setSize({ segmentSize, segmentSize });
+	segment.part.setSize({ static_cast<float>(segmentSize), 
+		                   static_cast<float>(segmentSize) });
 	segment.part.setFillColor(isHead ? sf::Color::Cyan : sf::Color::Green);
 	segment.part.setOutlineColor(sf::Color::Black);
 	segment.part.setOutlineThickness(1);
 
 	if (body.empty()) {
-		segment.part.setPosition({static_cast<float>(startPos.x), static_cast<float>(startPos.x)});
+		segment.part.setPosition({static_cast<float>(startPos.x), 
+			                      static_cast<float>(startPos.x)});
 
 	}
 	else {
-		segment.part.setPosition({ getTailPos().x - segmentSize, getTailPos().y });
+		segment.part.setPosition({ static_cast<float>(getTailPos().x - segmentSize), 
+			                       static_cast<float>(getTailPos().y) });
 	}
 
 	segment.segDirection = Direction::Right;
@@ -93,19 +96,19 @@ void Snake::moveSegments(SnakeSegment& segment, Direction direction) {
 
 	switch (direction) {
 	case Direction::Up:
-		segment.part.move({ 0, -segmentSize });
+		segment.part.move({ 0, static_cast<float>(-segmentSize)});
 		break;
 
 	case Direction::Down:
-		segment.part.move({ 0, segmentSize });
+		segment.part.move({ 0, static_cast<float>(segmentSize) });
 		break;
 
 	case Direction::Left:
-		segment.part.move({ -segmentSize, 0 });
+		segment.part.move({ static_cast<float>(-segmentSize), 0 });
 		break;
 
 	case Direction::Right:
-		segment.part.move({ segmentSize, 0 });
+		segment.part.move({ static_cast<float>(segmentSize), 0 });
 		break;
 	}
 }

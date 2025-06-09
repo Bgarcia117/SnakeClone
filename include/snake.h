@@ -46,7 +46,7 @@ private:
 	const int segmentSize = 20;
 	const sf::Vector2i startPos = { 200, 200 };
 
-	// === Variables ===
+	// === Direction ===
 	Direction moveDirection;
 	Direction nextDirection;
 
