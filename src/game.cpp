@@ -73,7 +73,7 @@ void Game::render() {
 
 void Game::initWindow() {
 	window.emplace(
-		sf::VideoMode({600, 600}),
+		sf::VideoMode({ windowSize.x, windowSize.y }),
 		"Snake",
 		sf::Style::Default  // Includes windowed, titlebar, and resize
 	);

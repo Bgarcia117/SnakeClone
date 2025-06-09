@@ -13,38 +13,33 @@ public:
 	Game();
 	~Game();
 
-	// === Accessors ===
+	// === Game Loop ===
 	bool isWindowOpen() const;
-
-	// === Update Functions ===
 	void updateEvent();
-	void updateGameState();
-
-	// === Render Functions === 
+	void updateGameState(); 
 	void render();
 
 private:
 	// === Window ===
 	std::optional<sf::RenderWindow> window;
-	// const sf::Vector2i windowSize = {}
+	const sf::Vector2u windowSize = { 600, 600 };
 	void initWindow();
 
-	// === Window Objects ===
+	// === Game Objects ===
 	Snake snake;
 	Food food;
 
-	// === Game Logic ===
+	// === Time Logic ===
 	sf::Clock moveClock;
-	const float moveInterval = 0.15f; // Moves every 0.15 sec for movesa
+	const float moveInterval = 0.15f; // Moves every 0.15 sec for moves
+
+	// === Game State ===
 	bool gameOver;
 	int score;
 
-	// === Random Number ===
-	/*std::random_device rd;
-	std::mt19937 gen;
-	std::uniform_real_distribution<int>
-	*/
-
-
+	// === Randomization ===
+	//std::random_device rd;              // Seed for generator
+	//std::mt19937 gen;                   // Generator
+	//std::uniform_real_distribution<int> // Shapes the random number
 
 }; 
