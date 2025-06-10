@@ -28,6 +28,7 @@ private:
 	// === Game Objects ===
 	Snake snake;
 	Food food;
+	void updateFoodPos();
 
 	// === Time Logic ===
 	sf::Clock moveClock;

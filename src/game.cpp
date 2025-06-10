@@ -81,4 +81,8 @@ void Game::initWindow() {
 	window->setFramerateLimit(60);
 }
 
+void Game::updateFoodPos() {
+	if (snake.getHeadPos())
+}
+
   
