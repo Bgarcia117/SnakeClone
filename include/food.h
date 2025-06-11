@@ -19,4 +19,5 @@ private:
 	sf::Vector2i position;
 
 	void setPosition();
+	void spawnFood(const Snake& snake);
 };

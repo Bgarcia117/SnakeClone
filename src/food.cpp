@@ -19,4 +19,7 @@ void Food::setPosition(sf::Vector2f newPositon) {
 
 }
 
-
+void Food::spawnFood(const Snake& snake) {
+	int x;
+	int y;
+}
