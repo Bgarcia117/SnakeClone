@@ -24,7 +24,13 @@ sf::Vector2i Snake::getTailPos() const {
 	return { static_cast<int>(pos.x), static_cast<int>(pos.y) };
 }
 
+std::vector<sf::Vector2f> Snake::getSegmentPos() const {
+	std::vector<sf::Vector2f> positions;
 
+	for (const auto& segment : body) {
+		positions.push_back(segment.part.getPosition());
+	}
+}
 
 void Snake::grow() {
 	if (!body.empty()) {
@@ -59,8 +65,6 @@ void Snake::changeDirection(Direction newDirection) {
 
 	nextDirection = newDirection;
 }
-
-
 
 void Snake::renderSnake(sf::RenderTarget& target) const {
 	for (const auto& segment : body) {

@@ -32,6 +32,7 @@ public:
 	void setDirection(Direction newDirection) { moveDirection = newDirection; }
 	sf::Vector2i getHeadPos() const;
 	sf::Vector2i getTailPos() const;
+	std::vector<sf::Vector2f> getSegmentPos() const;
 
 	// === Transformers ===
 	void grow();
