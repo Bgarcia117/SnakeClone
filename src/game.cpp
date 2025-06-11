@@ -82,7 +82,7 @@ void Game::initWindow() {
 }
 
 void Game::updateFoodPos() {
-	if (snake.getHeadPos())
+	
 }
 
   
