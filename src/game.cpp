@@ -1,6 +1,6 @@
 #include "game.h"
 
-Game::Game() : snake(), food(), gameOver(false), score(0), gen(rd(1, 600)) {
+Game::Game() : snake(), food(), gameOver(false), score(0) {
 	initWindow();
 }
 
@@ -82,7 +82,9 @@ void Game::initWindow() {
 }
 
 void Game::updateFoodPos() {
-	
+	std::vector<sf::Vector2f> positions = snake.getSegmentPos();
+
+	if ()
 }
 
   

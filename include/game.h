@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <random>
+#include <vector>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 
@@ -39,8 +40,8 @@ private:
 	int score;
 
 	// === Randomization ===
-	std::random_device rd;              // Seed for generator
-	std::mt19937 gen;                   // Generator
-	std::uniform_real_distribution<int> // Shapes the random number
+	// std::random_device rd;              // Seed for generator
+	// std::mt19937 gen;                   // Generator
+	// std::uniform_real_distribution<int> // Shapes the random number
 
 }; 
