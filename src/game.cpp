@@ -1,6 +1,8 @@
 #include "game.h"
 
-Game::Game() : snake(), food(), gameOver(false), score(0) {
+Game::Game() : snake(), food(), gameOver(false), score(0), gen(rd()), 
+               screenSize(0, 29) {
+
 	initWindow();
 }
 
@@ -55,6 +57,7 @@ void Game::updateGameState() {
 	// Check if enough time has passed to make a move and move snake
 	if (moveClock.getElapsedTime().asSeconds() >= moveInterval) {
 		snake.updateSnake();
+		updateFoodPos();
 		moveClock.restart();
 	}
 }
@@ -83,8 +86,22 @@ void Game::initWindow() {
 
 void Game::updateFoodPos() {
 	std::vector<sf::Vector2f> positions = snake.getSegmentPos();
+	sf::Vector2f foodPos = food.getFoodPos();
 
-	if ()
+	if (std::find(positions.begin(), positions.end(), foodPos) != positions.end()) {
+
+		while(std::find(positions.begin(), positions.end(), foodPos) != positions.end()) {
+			int newX = screenSize(gen) * 20;
+			int newY = screenSize(gen) * 20;
+			std::cout << newX << ", " << newY << std::endl;
+			food.moveFood({ newX, newY });
+	
+			foodPos = food.getFoodPos();
+		}
+
+		snake.grow();
+	}
+
 }
 
   
