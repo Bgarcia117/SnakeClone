@@ -30,6 +30,8 @@ std::vector<sf::Vector2f> Snake::getSegmentPos() const {
 	for (const auto& segment : body) {
 		positions.push_back(segment.part.getPosition());
 	}
+
+	return positions;
 }
 
 void Snake::grow() {
