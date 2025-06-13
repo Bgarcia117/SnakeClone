@@ -34,6 +34,7 @@ private:
 	Snake snake;
 	Food food;
 	void snakeOutOfBounds();
+	void snakeSelfCollision();
 	void updateFoodPos();
 
 	// === Time Logic ===

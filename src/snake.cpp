@@ -1,9 +1,7 @@
 #include "snake.h"
 
-Snake::Snake() {
-	bool turn = false;
-	moveDirection = Direction::Right;
-	nextDirection = Direction::Right;
+Snake::Snake() : length(1), moveDirection(Direction::Right), 
+                            nextDirection(Direction::Right) {
 
 	body.push_back(createSegment(true, true));
 
@@ -34,12 +32,17 @@ std::vector<sf::Vector2f> Snake::getSegmentPos() const {
 	return positions;
 }
 
+bool Snake::isMaxLength() const {
+	return length == 30;
+}
+
 void Snake::grow() {
 	if (!body.empty()) {
 		body.back().isTail = false;
 	}
 
 	body.push_back(createSegment(false, true));
+	length++;
 }
 
 

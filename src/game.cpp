@@ -15,7 +15,7 @@ bool Game::isWindowOpen() const {
 }
 
 bool Game::isGameOver() const {
-	return gameOver;
+	return gameOver || 
 }
 
 
@@ -62,6 +62,7 @@ void Game::updateGameState() {
 	if (moveClock.getElapsedTime().asSeconds() >= moveInterval) {
 		snake.updateSnake();
 		snakeOutOfBounds();
+		snakeSelfCollision();
 		updateFoodPos();
 		moveClock.restart();
 	}
@@ -95,6 +96,17 @@ void Game::snakeOutOfBounds() {
 	if (snakePos.x < 0 || snakePos.x >= static_cast<int>(windowSize.x) ||
 		snakePos.y < 0 || snakePos.y >= static_cast<int>(windowSize.y)) {
 		gameOver = true;
+	}
+}
+
+void Game::snakeSelfCollision() {
+	std::vector<sf::Vector2f> positions = snake.getSegmentPos();
+	sf::Vector2f head = positions[0];
+
+	for (size_t i = 1; i < positions.size(); ++i) {
+		if (positions[i] == head) {
+			gameOver = true;
+		}
 	}
 }
 

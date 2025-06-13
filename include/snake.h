@@ -1,5 +1,5 @@
 #pragma once
-
+#include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
@@ -33,6 +33,7 @@ public:
 	sf::Vector2i getHeadPos() const;
 	sf::Vector2i getTailPos() const;
 	std::vector<sf::Vector2f> getSegmentPos() const;
+	bool isMaxLength() const;
 
 	// === Transformers ===
 	void grow();
@@ -52,6 +53,7 @@ private:
 	Direction nextDirection;
 
 	// === Snake Body ===
+	int length;
 	std::vector<SnakeSegment> body;
 	SnakeSegment createSegment(bool isHead = false, bool isTail = false) const;
 	void moveSegments(SnakeSegment& segment, Direction direction);
