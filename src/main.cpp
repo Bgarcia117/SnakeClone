@@ -13,7 +13,5 @@ int main() {
         game.render();
     }
 
-    std::cout << "GAME OVER" << std::endl;
-
 	return 0;
 }

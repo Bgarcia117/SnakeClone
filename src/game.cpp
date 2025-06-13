@@ -15,7 +15,17 @@ bool Game::isWindowOpen() const {
 }
 
 bool Game::isGameOver() const {
-	return gameOver || 
+	if (snake.isMaxLength()) {
+		std::cout << "YOU WIN!" << std::endl;
+		return true;
+	}
+
+	if (gameOver) {
+		std::cout << "YOU LOSE! GAME OVER!" << std::endl;
+		return true;
+	}
+
+	return gameOver;
 }
 
 
