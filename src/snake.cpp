@@ -81,7 +81,7 @@ SnakeSegment Snake::createSegment(bool isHead, bool isTail) const {
 	SnakeSegment segment;
 	segment.part.setSize({ static_cast<float>(segmentSize), 
 		                   static_cast<float>(segmentSize) });
-	segment.part.setFillColor(isHead ? sf::Color::Cyan : sf::Color::Green);
+	segment.part.setFillColor(isHead ? sf::Color::Yellow : sf::Color::Green);
 	segment.part.setOutlineColor(sf::Color::Black);
 	segment.part.setOutlineThickness(1);
 
