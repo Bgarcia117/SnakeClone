@@ -14,6 +14,10 @@ bool Game::isWindowOpen() const {
 	return window->isOpen();
 }
 
+bool Game::isGameOver() const {
+	return gameOver;
+}
+
 
 void Game::updateEvent() {
 	// check all the window's events that were triggered since the last iteration of the loop
@@ -57,6 +61,7 @@ void Game::updateGameState() {
 	// Check if enough time has passed to make a move and move snake
 	if (moveClock.getElapsedTime().asSeconds() >= moveInterval) {
 		snake.updateSnake();
+		snakeOutOfBounds();
 		updateFoodPos();
 		moveClock.restart();
 	}
@@ -84,6 +89,15 @@ void Game::initWindow() {
 	window->setFramerateLimit(60);
 }
 
+void Game::snakeOutOfBounds() {
+	sf::Vector2i snakePos = snake.getHeadPos();
+
+	if (snakePos.x < 0 || snakePos.x >= static_cast<int>(windowSize.x) ||
+		snakePos.y < 0 || snakePos.y >= static_cast<int>(windowSize.y)) {
+		gameOver = true;
+	}
+}
+
 void Game::updateFoodPos() {
 	std::vector<sf::Vector2f> positions = snake.getSegmentPos();
 	sf::Vector2f foodPos = food.getFoodPos();
@@ -93,7 +107,6 @@ void Game::updateFoodPos() {
 		while(std::find(positions.begin(), positions.end(), foodPos) != positions.end()) {
 			int newX = screenSize(gen) * 20;
 			int newY = screenSize(gen) * 20;
-			std::cout << newX << ", " << newY << std::endl;
 			food.moveFood({ newX, newY });
 	
 			foodPos = food.getFoodPos();

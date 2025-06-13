@@ -19,6 +19,7 @@ public:
 
 	// === Game Loop ===
 	bool isWindowOpen() const;
+	bool isGameOver() const;
 	void updateEvent();
 	void updateGameState(); 
 	void render();
@@ -32,6 +33,7 @@ private:
 	// === Game Objects ===
 	Snake snake;
 	Food food;
+	void snakeOutOfBounds();
 	void updateFoodPos();
 
 	// === Time Logic ===
@@ -45,6 +47,6 @@ private:
 	// === Randomization ===
 	std::random_device rd;                          // Seed for generator
 	std::mt19937 gen;                               // Generator
-	std::uniform_int_distribution<int> screenSize; // Shapes the random number
+	std::uniform_int_distribution<int> screenSize;  // Shapes the random number
 
 }; 
