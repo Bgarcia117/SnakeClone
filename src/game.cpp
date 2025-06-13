@@ -21,7 +21,7 @@ bool Game::isGameOver() const {
 	}
 
 	if (gameOver) {
-		std::cout << "YOU LOSE! GAME OVER!" << std::endl;
+		std::cout << "YOU LOSE!   \nGAME OVER!" << std::endl;
 		return true;
 	}
 
