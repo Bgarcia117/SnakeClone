@@ -1,11 +1,19 @@
+/**
+ * @file game.cpp
+ * @brief Implementation of Game class
+ * 
+ * This files contains the implementation of all the Game class methods.
+ * The Game class controls and coordinates the game components
+*/
+
 #include "game.h"
 
 Game::Game() : snake(), food(), gameOver(false), score(0) {
 	initWindow();
 }
 
-Game::~Game()
-{
+Game::~Game() {
+	// SFML objects clean themselves up automatically
 }
 
 bool Game::isWindowOpen() const {
