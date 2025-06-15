@@ -9,10 +9,8 @@ public:
 	~Food();
 
 	void renderFood(sf::RenderTarget& target) const;
-	sf::Vector2f getFoodPos() {
-		return { static_cast<float>(position.x),
-			     static_cast<float>(position.y) }
-	}
+	sf::Vector2f getFoodPos() const;
+	void moveFood(sf::Vector2i newPosition); 
 
 private:
 	sf::RectangleShape food;
@@ -20,7 +18,4 @@ private:
 	const sf::Vector2i foodStartPos = { 300, 200 };
 	const sf::Vector2i foodSize = { 20, 20 };
 
-	sf::Vector2i position;
-
-	void setPosition(sf::Vector2f newPosition);
 };

@@ -2,8 +2,11 @@
 #include <iostream>
 #include <random>
 #include <vector>
+#include <algorithm>         // For std::find
+
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
+#include <SFML/System.hpp>
 
 #include "food.h"
 #include "snake.h"
@@ -16,6 +19,7 @@ public:
 
 	// === Game Loop ===
 	bool isWindowOpen() const;
+	bool isGameOver() const;
 	void updateEvent();
 	void updateGameState(); 
 	void render();
@@ -29,6 +33,8 @@ private:
 	// === Game Objects ===
 	Snake snake;
 	Food food;
+	void snakeOutOfBounds();
+	void snakeSelfCollision();
 	void updateFoodPos();
 
 	// === Time Logic ===
@@ -40,8 +46,8 @@ private:
 	int score;
 
 	// === Randomization ===
-	// std::random_device rd;              // Seed for generator
-	// std::mt19937 gen;                   // Generator
-	// std::uniform_real_distribution<int> // Shapes the random number
+	std::random_device rd;                          // Seed for generator
+	std::mt19937 gen;                               // Generator
+	std::uniform_int_distribution<int> screenSize;  // Shapes the random number
 
 }; 

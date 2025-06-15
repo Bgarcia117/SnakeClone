@@ -8,7 +8,9 @@
 
 #include "game.h"
 
-Game::Game() : snake(), food(), gameOver(false), score(0) {
+Game::Game() : snake(), food(), gameOver(false), score(0), gen(rd()), 
+               screenSize(0, 29) {
+
 	initWindow();
 }
 
@@ -18,6 +20,20 @@ Game::~Game() {
 
 bool Game::isWindowOpen() const {
 	return window->isOpen();
+}
+
+bool Game::isGameOver() const {
+	if (snake.isMaxLength()) {
+		std::cout << "YOU WIN!" << std::endl;
+		return true;
+	}
+
+	if (gameOver) {
+		std::cout << "YOU LOSE!   \nGAME OVER!" << std::endl;
+		return true;
+	}
+
+	return gameOver;
 }
 
 
@@ -63,6 +79,9 @@ void Game::updateGameState() {
 	// Check if enough time has passed to make a move and move snake
 	if (moveClock.getElapsedTime().asSeconds() >= moveInterval) {
 		snake.updateSnake();
+		snakeOutOfBounds();
+		snakeSelfCollision();
+		updateFoodPos();
 		moveClock.restart();
 	}
 }
@@ -89,10 +108,43 @@ void Game::initWindow() {
 	window->setFramerateLimit(60);
 }
 
+void Game::snakeOutOfBounds() {
+	sf::Vector2i snakePos = snake.getHeadPos();
+
+	if (snakePos.x < 0 || snakePos.x >= static_cast<int>(windowSize.x) ||
+		snakePos.y < 0 || snakePos.y >= static_cast<int>(windowSize.y)) {
+		gameOver = true;
+	}
+}
+
+void Game::snakeSelfCollision() {
+	std::vector<sf::Vector2f> positions = snake.getSegmentPos();
+	sf::Vector2f head = positions[0];
+
+	for (size_t i = 1; i < positions.size(); ++i) {
+		if (positions[i] == head) {
+			gameOver = true;
+		}
+	}
+}
+
 void Game::updateFoodPos() {
 	std::vector<sf::Vector2f> positions = snake.getSegmentPos();
+	sf::Vector2f foodPos = food.getFoodPos();
 
-	if ()
+	if (std::find(positions.begin(), positions.end(), foodPos) != positions.end()) {
+
+		while(std::find(positions.begin(), positions.end(), foodPos) != positions.end()) {
+			int newX = screenSize(gen) * 20;
+			int newY = screenSize(gen) * 20;
+			food.moveFood({ newX, newY });
+	
+			foodPos = food.getFoodPos();
+		}
+
+		snake.grow();
+	}
+
 }
 
   
