@@ -4,10 +4,19 @@
  * 
  * This files contains the implementation of all the Game class methods.
  * The Game class controls and coordinates the game components
-*/
+ */
 
 #include "game.h"
 
+/**
+ * @brief Default constructor
+ * 
+ * Intializes the game with:
+ * - Creates and configures the game window
+ * - Intializes snake and food objects
+ * - Sets up random number generator for food placement
+ * resets game state variables
+ */
 Game::Game() : snake(), food(), gameOver(false), score(0), gen(rd()), 
                screenSize(0, 29) {
 
@@ -18,16 +27,31 @@ Game::~Game() {
 	// SFML objects clean themselves up automatically
 }
 
+/**
+ * @brief Check if the game window is still open
+ * @return true if the window is open, false otherwise
+ */
 bool Game::isWindowOpen() const {
 	return window->isOpen();
 }
 
+/**
+ * @brief Check if a win/lose condition has been met
+ * 
+ * Game ends if:
+ * - Snake reaches its maximum length (wins)
+ * - Snake collides with screen edge or itself (lose)
+ * 
+ * @return true if the game is over, false otherwises
+ */
 bool Game::isGameOver() const {
+	// Check if snake has reached maximum length
 	if (snake.isMaxLength()) {
 		std::cout << "YOU WIN!" << std::endl;
 		return true;
 	}
 
+	// Check if game over flag has been set
 	if (gameOver) {
 		std::cout << "YOU LOSE!   \nGAME OVER!" << std::endl;
 		return true;
@@ -36,7 +60,14 @@ bool Game::isGameOver() const {
 	return gameOver;
 }
 
-
+/**
+ * @brief Process window and input events
+ * 
+ * Handles:
+ * - Window close events
+ * - Keyboard input for snake direction changes
+ * - Other SFML window events
+ */
 void Game::updateEvent() {
 	// check all the window's events that were triggered since the last iteration of the loop
 	while (const std::optional event = window->pollEvent()) {
