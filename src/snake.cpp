@@ -1,5 +1,29 @@
+/**
+ * @brief Move a segment in the specified direction
+ * 
+ * Updates the position of a single segment based on the movement direction
+ * Handles the coordinates
+ * @file snake.cpp
+ * @brief Implementation of the Snake class
+ * 
+ * This file containns the implementation of all Snake class methods
+ * The Snake class amanges the player-controlled snake including movement,
+ * growth, direction changes, and render each segment.
+
+
+*/
+
 #include "snake.h"
 
+/**
+ * @brief Default constructor
+ * 
+ * Initializes the snake with:
+ * - Starting position at (200, 200)
+ * - Initial length of 3 segments
+ * - Default movement direction (Right)
+ * - Head, body, and tail segments configured
+ */
 Snake::Snake() : length(1), moveDirection(Direction::Right), 
                             nextDirection(Direction::Right) {
 

@@ -79,6 +79,7 @@ void Game::updateEvent() {
 		// getIf returns a pointer
 		else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>()) {
 
+			// Maps keyboard input to snake directions
 			switch (keyPressed->scancode) {
 				case sf::Keyboard::Scancode::W:
 				case sf::Keyboard::Scancode::Up:
@@ -106,52 +107,109 @@ void Game::updateEvent() {
 	}
 }
 
+
+/**
+ * @brief Update game state logic
+ * 
+ * Called once per frame to:
+ * - Move snake based on time passed
+ * - Check collisions (walls, self, food)
+ * - Update food position if eaten
+ * - Manage game timing
+ */
 void Game::updateGameState() {
 	// Check if enough time has passed to make a move and move snake
 	if (moveClock.getElapsedTime().asSeconds() >= moveInterval) {
 		snake.updateSnake();
-		snakeOutOfBounds();
-		snakeSelfCollision();
-		updateFoodPos();
+
+		// Collision detection
+		snakeOutOfBounds();   // Checks wall collisions
+		snakeSelfCollision(); // Checks self collison
+		updateFoodPos();      // Check food consumption
+
+		// Reset timer for next update
 		moveClock.restart();
 	}
 }
 
+/**
+ * @brief Render current frame to the screen
+ *
+ * Draws all game objects:
+ * - Clears the screen
+ * - Renders food
+ * - Renders snake
+ * - Displays the frame
+ */
 void Game::render() {
+	// Clears previous frame
 	window->clear();
 
-	// Error Handling for optional window & dereferences
+	// Error Handling: ensures window exists
 	if (window) {
+
+		// Renders the food and snake
 		food.renderFood(*window);
 		snake.renderSnake(*window);
 	}
 
+	// Displays the frame
 	window->display();
 }
 
+/**
+ * @brief Intialize and configure the game window
+ * 
+ * Sets up:
+ * - Window size and title
+ * - Sets frame rate limit
+ * - Window style and properties
+ */
 void Game::initWindow() {
+	// Creates window using emplace for optional<sf::RenderWindow>
 	window.emplace(
 		sf::VideoMode({ windowSize.x, windowSize.y }),
 		"Snake",
 		sf::Style::Default  // Includes windowed, titlebar, and resize
 	);
 
+	// Sets frame rate limit to prevent timing issues
 	window->setFramerateLimit(60);
 }
 
+/**
+ * @brief Check if the snake has moved outside window boundaries
+ * 
+ * Sets gameOver flag if snake head touches the screen edge
+ * Called after each snake movement
+ */
 void Game::snakeOutOfBounds() {
+	// Get current snake head position
 	sf::Vector2i snakePos = snake.getHeadPos();
 
+	// Check if snake has moved outside or touched window boundaries
 	if (snakePos.x < 0 || snakePos.x >= static_cast<int>(windowSize.x) ||
 		snakePos.y < 0 || snakePos.y >= static_cast<int>(windowSize.y)) {
+		
+		// Set game flag - handled in next frame
 		gameOver = true;
 	}
 }
 
+/**
+ * @brief Check if the snake has collided with itself
+ * 
+ * Compares snake head position with the rest of the body segments
+ * Sets gameOVer flag to true if collision ius detected
+ */
 void Game::snakeSelfCollision() {
+	// Get positions of all snake segments
 	std::vector<sf::Vector2f> positions = snake.getSegmentPos();
+	
+	// Head is always at the first position
 	sf::Vector2f head = positions[0];
 
+	// Check if head position matches any other body segment position
 	for (size_t i = 1; i < positions.size(); ++i) {
 		if (positions[i] == head) {
 			gameOver = true;
@@ -159,20 +217,39 @@ void Game::snakeSelfCollision() {
 	}
 }
 
+/**
+ * @brief Handle food consumption and repositioning
+ * 
+ * Check if snake head overlaps with food position
+ * If so:
+ * - Grows the snake
+ * - Moves the food to random position (avoiding snake body)
+ */
 void Game::updateFoodPos() {
+	// Get snake segment positions for collision checking
 	std::vector<sf::Vector2f> positions = snake.getSegmentPos();
 	sf::Vector2f foodPos = food.getFoodPos();
 
+	// Checks if any snake segment overlaps with the food position
 	if (std::find(positions.begin(), positions.end(), foodPos) != positions.end()) {
 
+		// Food has been consumed - find new valid position
+		// Continue generating new positions until one doesn't overlap with snake
 		while(std::find(positions.begin(), positions.end(), foodPos) != positions.end()) {
+
+			// Generate random grid coordinates (0-29) and converts to pixel coordinates
+			// Multiply by 20 to align with the 20x20 pixel grid size
 			int newX = screenSize(gen) * 20;
 			int newY = screenSize(gen) * 20;
+
+			// Move food to the new position
 			food.moveFood({ newX, newY });
 	
+			// Update foodPos for next iteration check
 			foodPos = food.getFoodPos();
 		}
 
+		// Snake consumed the food - grow by one segment
 		snake.grow();
 	}
 
