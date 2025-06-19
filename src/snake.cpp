@@ -36,16 +36,39 @@ Snake::Snake() : length(1), moveDirection(Direction::Right),
 Snake::~Snake() {
 }
 
+/**
+ * @brief Get the position of the snake's head
+ * 
+ * Returns the top left corner position of the head segment.
+ * Used for collision detection and boundary checks.
+ * @return sf::Vector2i The head position as integer coordinates
+ */
 sf::Vector2i Snake::getHeadPos() const {
 	sf::Vector2f pos = body.front().part.getPosition();
 	return { static_cast<int>(pos.x), static_cast<int>(pos.y) };
 }
 
+/**
+ * @brief Get the position of the snake's tail
+ * 
+ * Returns the position of the last segment in the snake's body.
+ * Useful for growth mechanics and tail specific operations.
+ * 
+ * @returns sf::Vector2i The tail position as integer coordinates
+ */
 sf::Vector2i Snake::getTailPos() const {
 	sf::Vector2f pos = body.back().part.getPosition();
 	return { static_cast<int>(pos.x), static_cast<int>(pos.y) };
 }
 
+/**
+ * @brief Get positions of all snake segments
+ *
+ * Returns a vector containing the positions of all segments from head to tail.
+ * Used for collision detection (self-colllison, food overlap checks).
+ * 
+ * @returns std::vector<sf::Vector2f> Vector of all segment positions
+ */
 std::vector<sf::Vector2f> Snake::getSegmentPos() const {
 	std::vector<sf::Vector2f> positions;
 
@@ -56,10 +79,24 @@ std::vector<sf::Vector2f> Snake::getSegmentPos() const {
 	return positions;
 }
 
+/**
+ * @brief Check if the snake has reached maximum length
+ * 
+ * Determines if the snake has filled the entire window.
+ * This is the win condition for the game.
+ * 
+ * @return true if snake is at max length, false otherwise
+ */
 bool Snake::isMaxLength() const {
 	return length == 30;
 }
 
+/**
+ * @brief Add a new segment to the snake (grows longer)
+ * 
+ * Called when the snake consumes food. Add new segment at tail
+ * position, making the snake segment longer.
+ */
 void Snake::grow() {
 	if (!body.empty()) {
 		body.back().isTail = false;
@@ -69,7 +106,14 @@ void Snake::grow() {
 	length++;
 }
 
-
+/**
+ * @brief Update the snake's position and state
+ * 
+ * Called once per game cycle to:
+ * - Apply any queued direction changes
+ * - Move all segments to their new positions
+ * - Update segment directions for smooth snake-like behavior
+ */
 void Snake::updateSnake() {
 	// Each segment copies the position and direction of the one in ahead of it
 	for (int i = body.size() - 1; i > 0; --i) {
@@ -84,6 +128,15 @@ void Snake::updateSnake() {
 	body[0].segDirection = moveDirection;
 }
 
+ /**
+  * @brief Changes the snake's movement direction with validation.
+  *
+  * Changes the snake's direction while preventing invalid moves:
+  * - Cannot reverse directly into the opposite direction.
+  * - Queues the direction change for the next movement update
+  *
+  * @param newDirection The requested new direction
+  */
 void Snake::changeDirection(Direction newDirection) {
 	if ((moveDirection == Direction::Up && newDirection == Direction::Down)    ||
 		(moveDirection == Direction::Down && newDirection == Direction::Up)    ||
@@ -95,12 +148,30 @@ void Snake::changeDirection(Direction newDirection) {
 	nextDirection = newDirection;
 }
 
+/**
+ * @brief Render the snake to the specified render target
+ * 
+ * Draws all snake segments to the provided render target.
+ * Segmens are drawn in order from tail to head so that the 
+ * head appears on top in case of overlaps
+ * 
+ * @param target The SFML render target to draw to (the window in this case)
+ */
 void Snake::renderSnake(sf::RenderTarget& target) const {
 	for (const auto& segment : body) {
 		target.draw(segment.part);
 	}
 }
 
+/**
+ * @brief Create a new snake segment with specified properties
+ * 
+ * Creates configured snake segments with size, color, and positioning.
+ * 
+ * @param isHead True if the segment should be marked as the head.
+ * @param isTail True if the segment should be marked as the tail.
+ * @return SnakeSegment A fully configured segment
+ */
 SnakeSegment Snake::createSegment(bool isHead, bool isTail) const {
 	SnakeSegment segment;
 	segment.part.setSize({ static_cast<float>(segmentSize), 
