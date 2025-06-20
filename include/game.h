@@ -13,9 +13,8 @@
 
 class Game {
 public:
-	// === Constructors / Destructor ===
+	// === Constructors ===
 	Game();
-	~Game();
 
 	// === Game Loop ===
 	bool isWindowOpen() const;

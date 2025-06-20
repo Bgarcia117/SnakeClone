@@ -6,7 +6,6 @@
 class Food {
 public:
 	Food();
-	~Food();
 
 	void renderFood(sf::RenderTarget& target) const;
 	sf::Vector2f getFoodPos() const;
@@ -15,7 +14,9 @@ public:
 private:
 	sf::RectangleShape food;
 
-	const sf::Vector2i foodStartPos = { 300, 200 };
-	const sf::Vector2i foodSize = { 20, 20 };
+	// Kept static b/c they belong to the class and not each instance
+	// Kept private for better encapsulation
+	static constexpr sf::Vector2i foodStartPos = { 300, 200 };
+	static constexpr sf::Vector2i foodSize = { 20, 20 };
 
 };

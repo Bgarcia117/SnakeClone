@@ -1,16 +1,13 @@
 /**
- * @brief Move a segment in the specified direction
- * 
- * Updates the position of a single segment based on the movement direction
- * Handles the coordinates
  * @file snake.cpp
  * @brief Implementation of the Snake class
  * 
- * This file containns the implementation of all Snake class methods
- * The Snake class amanges the player-controlled snake including movement,
- * growth, direction changes, and render each segment.
-
-
+ * This file contains all the function definitions for the Snake class.
+ * The Snake class manages the player controlled snake, including:
+ * - Segment creation and rendering
+ * - Movement and direction changes
+ * - Growth when food is consumed
+ * - Collision detection
 */
 
 #include "snake.h"
@@ -31,9 +28,6 @@ Snake::Snake() : length(1), moveDirection(Direction::Right),
 
 	grow();
 	grow();
-}
-
-Snake::~Snake() {
 }
 
 /**
@@ -196,22 +190,35 @@ SnakeSegment Snake::createSegment(bool isHead, bool isTail) const {
 	return segment;
 }
 
+/**
+ * @brief Move a single snake segment in the specified direction
+ * 
+ * Updates the position of a given snake segment by shifting it by
+ * one grid unit (20 pixels) in the given direction.
+ * 
+ * @param segment Reference to the SnakeSegment to move
+ * @param direction Direction in which to move the segment
+ */
 void Snake::moveSegments(SnakeSegment& segment, Direction direction) {
 
 	switch (direction) {
+	// Move upwards by decreasing the y-coordinate
 	case Direction::Up:
 		segment.part.move({ 0, static_cast<float>(-segmentSize)});
 		break;
 
 	case Direction::Down:
+		// Move downward by increasing tdhe y-coordinate
 		segment.part.move({ 0, static_cast<float>(segmentSize) });
 		break;
 
 	case Direction::Left:
+		// Move left by decreasing the x-coordinate
 		segment.part.move({ static_cast<float>(-segmentSize), 0 });
 		break;
 
 	case Direction::Right:
+		// Move right by decreasing the x-coordinate
 		segment.part.move({ static_cast<float>(segmentSize), 0 });
 		break;
 	}

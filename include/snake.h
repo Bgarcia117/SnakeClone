@@ -23,9 +23,8 @@ struct SnakeSegment {
 class Snake {
 public:
 
-	// === Constructors / Destructor
+	// === Constructor ===
 	Snake();
-	~Snake();
 
 	// === Accessors ===
 	Direction getDirection() const { return moveDirection; }
@@ -45,8 +44,8 @@ public:
 
 private:
 	// === Constants ===
-	const int segmentSize = 20;
-	const sf::Vector2i startPos = { 200, 200 };
+	static constexpr int segmentSize = 20;
+	static constexpr sf::Vector2i startPos = { 200, 200 };
 
 	// === Direction ===
 	Direction moveDirection;

@@ -23,10 +23,6 @@ Game::Game() : snake(), food(), gameOver(false), score(0), gen(rd()),
 	initWindow();
 }
 
-Game::~Game() {
-	// SFML objects clean themselves up automatically
-}
-
 /**
  * @brief Check if the game window is still open
  * @return true if the window is open, false otherwise
