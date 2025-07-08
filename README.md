@@ -16,7 +16,7 @@ The objective of this project is to:
 
 ---
 
-## 🎮 Features (In Progress)
+## 🎮 Features
 
 - Smooth Snake movement using arrow keys
 - Randomly spawning food (apple)
